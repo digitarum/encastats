@@ -1,0 +1,12 @@
+name = "settings"
+main = "src/worker.ts"
+compatibility_date = "2023-11-25"
+env = { }
+
+[triggers]
+crons = [ ]
+
+[vars]
+SSID=""
+PASSWORD=""
+CHAT_ID=123

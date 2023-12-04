@@ -1,0 +1,60 @@
+openapi: 3.0.0
+info:
+  title: Rover Control API
+  description: API for controlling the state of a rover
+  version: 1.0.1
+servers:
+  - url: 'https://elegua.u1062049.workers.dev'
+paths:
+  /:
+    post:
+      summary: Process Telegram Message
+      description: Process a Telegram message and return the updated state.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            examples:
+              return-state:
+                summary: "Return the state of the rover"
+                value:
+                  message:
+                    chat:
+                      id: 5654262871
+                    text: "return state"
+              turn-on:
+                summary: "Turn on the rover"
+                value:
+                  message:
+                    chat:
+                      id: 5654262871
+                    text: "turn on"
+              turn-off:
+                summary: "Turn off the rover"
+                value:
+                  message:
+                    chat:
+                      id: 5654262871
+                    text: "turn off"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              examples:
+                return-state:
+                  summary: "Return the state of the rover"
+                  value:
+                    state: 'on'
+                    message: 'The rover is: on'
+                turn-on:
+                  summary: "The rover was turned on"
+                  value:
+                    state: 'on'
+                    message: 'The rover was turned on.'
+                turn-off:
+                  summary: "The rover was turned off"
+                  value:
+                    state: 'on'
+                    message: 'The rover was turned off.'
+

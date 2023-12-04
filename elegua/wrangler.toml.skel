@@ -1,0 +1,15 @@
+name = "###"
+main = "src/###.ts"
+compatibility_date = "2023-11-18"
+env = { }
+
+[triggers]
+crons = [ ]
+
+[vars]
+BOT_TOKEN = "###:###"
+CHAT_ID = "###"
+
+[[kv_namespaces]]
+id = "###"
+binding = "###"

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Robot Movement Control</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+
+    #buttonTable {
+      margin: auto;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 10px 20px;
+      margin: 10px;
+      cursor: pointer;
+    }
+
+    #loadingCell {
+      position: relative;
+    }
+
+    #loadingGif {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      width: 40px;
+      height: 40px;
+      filter: invert(1);
+    }
+  </style>
+</head>
+<body>
+
+<h2>Robot Control</h2>
+
+<label for="urlInput">Server URL:</label>
+<input type="text" id="urlInput" value="http://192.168.0.17:8080" style="width: 300px;">
+<br>
+
+<table id="buttonTable">
+  <tr>
+    <td></td>
+    <td><button class="btn btn-primary" onclick="sendCommand('/forward')">Forward</button></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><button class="btn btn-primary" onclick="sendCommand('/left')">Left</button></td>
+    <td id="loadingCell">
+      <img id="loadingGif" src="loading.gif" alt="Loading...">
+    </td>
+    <td><button class="btn btn-primary" onclick="sendCommand('/right')">Right</button></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><button class="btn btn-primary" onclick="sendCommand('/backward')">Backward</button></td>
+    <td></td>
+  </tr>
+</table>
+
+<script>
+  function sendCommand(endpoint) {
+    var url = document.getElementById('urlInput').value;
+    var fullURL = url + endpoint;
+
+    document.getElementById('loadingGif').style.display = 'block';
+
+    fetch(fullURL)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Error in the request.');
+              }
+              console.log('Command was sent:', fullURL);
+            })
+            .catch(error => {
+              console.error('Error sending the command:', error);
+            })
+            .finally(() => {
+              // Hide loading GIF after the request is done (success or error)
+              document.getElementById('loadingGif').style.display = 'none';
+            });
+  }
+</script>
+
+<!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
